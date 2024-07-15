@@ -13,7 +13,7 @@ resource "google_cloud_run_service" "api_server" {
     }
   }
 
-  traffics {
+  traffic {
     percent         = 100
     latest_revision = true
   }
@@ -21,6 +21,8 @@ resource "google_cloud_run_service" "api_server" {
 
 resource "google_project_iam_member" "cloud_run_invoker" {
   project = var.project_id
+  location = google_cloud_run_service.api_server.location
+  service  = google_cloud_run_service.api_server.name
   role    = "roles/run.invoker"
-  member  = "allUsers"
+  members  = ["allUsers"]
 }
