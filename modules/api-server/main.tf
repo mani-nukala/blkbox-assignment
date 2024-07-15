@@ -19,7 +19,7 @@ resource "google_cloud_run_service" "api_server" {
   }
 }
 
-resource "google_project_iam_member" "cloud_run_invoker" {
+resource "google_cloud_run_service_iam_binding" "cloud_run_invoker" {
   project = var.project_id
   location = google_cloud_run_service.api_server.location
   service  = google_cloud_run_service.api_server.name
